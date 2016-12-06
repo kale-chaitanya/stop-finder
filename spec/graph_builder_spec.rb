@@ -1,16 +1,14 @@
 require_relative "../graph_builder"
+require_relative "./spec_helper"
 
 describe "#graph_builder" do
+  RSpec.configure do |c|
+    c.include SpecHelper
+  end
+
   describe "#build_graph" do
     it "builds a graph given a csv file" do
-      expected_graph = {
-        "A"=>{:line=>["1", "2"], :connects=>["B", "D"]},
-        "B"=>{:line=>["1"], :connects=>["A", "C"]},
-        "C"=>{:line=>["1"], :connects=>["B", "E"]},
-        "E"=>{:line=>["1", "2"], :connects=>["C", "F", "D"]},
-        "F"=>{:line=>["1", "2"], :connects=>["E"]},
-        "D"=>{:line=>["2"], :connects=>["A", "E"]}
-      }
+      expected_graph = test_graph
 
       graph = GraphBuilder.new().build_graph(
         "spec/test_file.csv",
